@@ -1,0 +1,4 @@
+@charset "UTF-8";
+
+*:where(:not(iframe,canvas,img,svg,video):not(svg *)){all:unset;display:revert}*,*::before,*::after{box-sizing:border-box}ol,ul{list-style:none}img{max-width:100%}table{border-collapse:collapse}a{cursor:pointer}@media(width <= 767px){html{font-size:2.6666666667vw}}@media(width <= 767px){.pc{display:none}}@media(width <= 767px){.sp{display:block}}
+/*# sourceMappingURL=map/style.css.map */

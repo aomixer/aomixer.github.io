@@ -1,43 +1,26 @@
-const gulp = require('gulp');
-
-// sass（DartSass）
-const sass = require('gulp-sass')(require('sass'));
-
-// PostCss
-const postcss = require('gulp-postcss');
-const autoprefixer = require('autoprefixer'); // ベンダープレフィックス付けてくれる
-const flexBugsFixes = require('postcss-flexbugs-fixes'); // ブラウザによるflexboxのバグを防ぐ記述に変更してくれる
-
-// img(圧縮用)
-const imagemin = require('gulp-imagemin');
-const pngquant = require('imagemin-pngquant');
-const mozjpeg = require('imagemin-mozjpeg');
-
-// img(webp用)
-const webp = require('gulp-webp');
-
-// ejs
+const autoprefixer = require('autoprefixer');
+const browserSync = require('browser-sync').create();
+const del = require('del');
 const ejs = require('gulp-ejs');
 const ejsSrc = ['_src/ejs/**/*.ejs', '!' + '_src/ejs/**/_*.ejs'];
+const flexBugsFixes = require('postcss-flexbugs-fixes');
+const gulp = require('gulp');
+const header = require('gulp-header');
+const imagemin = require('gulp-imagemin');
+const mozjpeg = require('imagemin-mozjpeg');
+const notify = require('gulp-notify');
+const plumber = require('gulp-plumber');
+const pngquant = require('imagemin-pngquant');
+const postcss = require('gulp-postcss');
 const rename = require('gulp-rename');
-
-// webpack
-const webpack = require('webpack'); // webpack本体
-const webpackStream = require('webpack-stream'); // webpackをgulpで使用する為のプラグイン
-
-// webpackの設定ファイルの読み込み
+const replace = require('gulp-replace');
+const sass = require('gulp-sass')(require('sass'));
+const webp = require('gulp-webp');
+const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
+const webpackStream = require('webpack-stream');
 
-// other
-const browserSync = require('browser-sync').create(); // 監視
-const plumber = require('gulp-plumber'); // Stream中に起こるのエラーが原因でタスクが強制停止することを防止するモジュール
-const replace = require('gulp-replace'); // 置き換える
-const header = require('gulp-header'); // cssの先頭にcharset入れるために使用
-const notify = require('gulp-notify'); // エラーがあったりしたら通知出してくれる
-const del = require('del'); // 特定のファイル・ディレクトリを削除する用
-
-// path
-const distPath = './docs/assets'; // css、img、jsの出力先のパス
+const distPath = './docs/assets';
 const path = {
   root: './_src',
   html: {
@@ -64,15 +47,12 @@ const path = {
   },
 };
 
-// autoprefixer config
 const autoprefixerOption = {
   grid: true,
 };
 
-// PostCss config
 const postcssOption = [autoprefixer(autoprefixerOption), flexBugsFixes];
 
-// sassコンパイル
 function sassCompress() {
   return gulp
     .src(path.styles.src, { sourcemaps: true })
@@ -95,7 +75,6 @@ function sassCompress() {
     .pipe(gulp.dest(path.styles.dest, { sourcemaps: './map' }));
 }
 
-// 画像の最適化(設定)
 const imageminOption = [
   pngquant({
     quality: [0.8, 0.9],
@@ -111,12 +90,10 @@ const imageminOption = [
   }),
 ];
 
-// 画像の最適化
 function images() {
   return gulp.src(path.images.src).pipe(imagemin(imageminOption)).pipe(gulp.dest(path.images.dest));
 }
 
-// webpの生成
 function webps() {
   return gulp
     .src(path.images.src)
@@ -129,7 +106,6 @@ function webps() {
     .pipe(gulp.dest(path.images.dest));
 }
 
-// ejsのコンパイル
 function ejsCompile() {
   return gulp
     .src(ejsSrc)
@@ -146,7 +122,6 @@ function ejsCompile() {
     .pipe(gulp.dest(path.ejs.dest));
 }
 
-// webpackを使ってjsファイルをトランスパイルする
 function esTranspile() {
   return gulp
     .src(path.scripts.src)
@@ -158,11 +133,10 @@ function esTranspile() {
         }),
       })
     )
-    .pipe(webpackStream(webpackConfig, webpack)) // webpackStreamの第2引数にwebpackを渡す。
+    .pipe(webpackStream(webpackConfig, webpack))
     .pipe(gulp.dest(path.scripts.dest));
 }
 
-// mapファイルを削除
 function mapClean() {
   return del([distPath + '/css/map/', distPath + '/js/script.js.map']);
 }
@@ -171,10 +145,8 @@ function buildClean() {
   return del(distPath);
 }
 
-// ブラウザ自動更新&監視
 const browsersync = (done) => {
   browserSync.init({
-    //デフォルトのconnectedのメッセージ非表示
     notify: false,
     server: {
       baseDir: './docs/',
@@ -197,23 +169,8 @@ function watchFiles() {
   gulp.watch(path.ejs.src).on('change', gulp.series(ejsCompile, browserReload));
 }
 
-/**
- * デフォルトタスク
- * sassのコンパイル
- * ejsのコンパイル
- * jsのトランスパイル
- * npm run start でタスク起動
- */
 exports.default = gulp.series(gulp.parallel(sassCompress, ejsCompile, esTranspile), gulp.parallel(browsersync, watchFiles));
-
-// 納品前などに実行
 exports.build = gulp.series(buildClean, images, gulp.parallel(sassCompress, ejsCompile, esTranspile), mapClean);
-
-// 画像圧縮
 exports.imagemin = gulp.series(images);
-
-// webp用
 exports.webp = gulp.series(webps);
-
-// cssとjsのmapディレクトリ・ファイルを削除
 exports.mapclean = gulp.series(mapClean);

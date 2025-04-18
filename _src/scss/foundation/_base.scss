@@ -7,6 +7,14 @@ html {
   }
 }
 
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 .pc {
   @include m.sp {
     display: none;

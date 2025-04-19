@@ -1,0 +1,29 @@
+---
+const today = new Date();
+---
+
+<footer>
+	&copy; {today.getFullYear()} aomixer All rights reserved.
+</footer>
+<style>
+	footer {
+		border-top: 1px solid #eee;
+		padding: 2em 1em 6em 1em;
+		background: #fff;
+		color: rgb(var(--gray));
+		text-align: center;
+	}
+	.social-links {
+		display: flex;
+		justify-content: center;
+		gap: 1em;
+		margin-top: 1em;
+	}
+	.social-links a {
+		text-decoration: none;
+		color: rgb(var(--gray));
+	}
+	.social-links a:hover {
+		color: rgb(var(--gray-dark));
+	}
+</style>

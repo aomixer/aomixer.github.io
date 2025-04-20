@@ -12,6 +12,10 @@
     "@astrojs/mdx": "^4.2.4",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.3.0",
-    "astro": "^5.7.4"
+    "astro": "^5.7.4",
+    "sass": "^1.86.3"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.86.3"
   }
 }

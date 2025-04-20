@@ -1,18 +1,78 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import Layout from "../layouts/Page.astro";
 ---
 
 <Layout
-	title="About Me"
+	title="about me"
 	description="お絵描きゲーミングウーパー"
-	pubDate={new Date('2025/04/20')}
+	pubDate={new Date("2025/04/20")}
 	heroImage="/assets/img/about/img_header.jpg"
 >
-	<p>
-		お絵描きゲーミングウーパー
-	</p>
+	<p>お絵描きゲーミングウーパー</p>
 
 	<p>
-		<a href="/assets/img/about/img_avatar-preview.png" target="_blank">三面図的なもの</a>
+		<a href="/assets/img/about/img_avatar-preview.png" target="_blank"
+			>三面図的なもの</a
+		>
 	</p>
+
+	<table>
+		<tbody>
+			<tr>
+				<th>PC</th>
+				<td><strong>G-Master Spear Z790/D5</strong><br />CPU：Core
+					i7-13700K<br />グラボ：GeForce RTX4060 8GB<br />マザボ：ASRock Z790 LiveMixer<br />メモリ：64GB<br />OS：Windows11
+					Pro</td>
+			</tr>
+			<tr>
+				<th>エディタ</th>
+				<td>Visual Studio Code<br />秀丸エディタ</td>
+			</tr>
+			<tr>
+				<th>お絵かき</th>
+				<td>CLIP STUDIO PAINT<br />Adobe Photoshop CC<br />Adobe
+					Illustrator CC</td>
+			</tr>
+			<tr>
+				<th>その他のソフト</th>
+				<td>Adobe CCコンプリート</td>
+			</tr>
+			<tr>
+				<th>モニタ</th>
+				<td>BenQ XL2411P（メイン）<br />BenQ RL2460（サブ）</td>
+			</tr>
+			<tr>
+				<th>ヘッドフォン</th>
+				<td>ATH-HL7BT</td>
+			</tr>
+			<tr>
+				<th>マイク</th>
+				<td>HyperX QuadCast Q</td>
+			</tr>
+			<tr>
+				<th>キーボード</th>
+				<td>CORSAIR K65 RAPIDFIRE CherryMX Speed RGB COMPACT</td>
+			</tr>
+			<tr>
+				<th>マウス</th>
+				<td>Razer Mamba Wireless</td>
+			</tr>
+			<tr>
+				<th>マウスパッド</th>
+				<td>CORSAIR MM300 Extended</td>
+			</tr>
+			<tr>
+				<th>ペンタブ</th>
+				<td> Wacom Cintiq Pro 13(DTH-1320) </td>
+			</tr>
+			<tr>
+				<th>机</th>
+				<td>100-DESK034（W1200xD500）</td>
+			</tr>
+			<tr>
+				<th>椅子</th>
+				<td>DXRACER DXR-BKN</td>
+			</tr>
+		</tbody>
+	</table>
 </Layout>

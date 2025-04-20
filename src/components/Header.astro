@@ -7,13 +7,13 @@ import { SITE_TITLE } from '../consts';
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+			<!-- <HeaderLink href="/">Home</HeaderLink> -->
+			<HeaderLink href="/blog">blog</HeaderLink>
+			<HeaderLink href="/about">me</HeaderLink>
 		</div>
 	</nav>
 </header>
-<style>
+<style lang="scss">
 	header {
 		margin: 0;
 		padding: 0 1em;
@@ -49,6 +49,17 @@ import { SITE_TITLE } from '../consts';
 		display: flex;
 	}
 	@media (max-width: 720px) {
+		nav {
+			flex-wrap: wrap;
+
+			a {
+				padding: .5em;
+			}
+		}
+		h2 {
+			width: 100%;
+			padding: 1em 0;
+		}
 		.social-links {
 			display: none;
 		}

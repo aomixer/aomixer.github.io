@@ -1,0 +1,206 @@
+---
+// props を受け取るようにする
+export interface Props {
+  posts: any[];
+  currentPage: number;
+  totalPages: number;
+  pagination: boolean;
+}
+
+const {
+  posts = [],
+  currentPage = 1,
+  totalPages = 1,
+  pagination = true
+} = Astro.props;
+
+import FormattedDate from '../components/FormattedDate.astro';
+---
+<ul class="c-postList">
+  {
+    posts.map((post) => (
+      <li class="c-postList__item">
+        <a href={`/blog/${post.id}/`} class="c-postList__item__link">
+          <img
+            width={720}
+            height={360}
+            src={post.data.heroImage ?? '/assets/img/blog/noimage.png'}
+            alt={post.data.title}
+            class="c-postList__item__img"
+          >
+          <h4 class="c-postList__item__title">{post.data.title}</h4>
+          <p class="c-postList__item__date">
+            <FormattedDate date={post.data.pubDate} />
+          </p>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+{pagination && (
+<nav class="c-pagination">
+  {currentPage > 1 && <a href={`/blog/page/${currentPage - 1}`} class="c-pagination__link--prev"></a>}
+  {
+    Array.from({ length: totalPages }).map((_, i) => (
+      <a
+        href={`/blog/page/${i + 1}`}
+        class={i + 1 === currentPage ? 'c-pagination__link is-current' : 'c-pagination__link'}
+      >
+        {i + 1}
+      </a>
+    ))
+  }
+  {currentPage < totalPages && <a href={`/blog/page/${currentPage + 1}`} class="c-pagination__link--next"></a>}
+</nav>
+)}
+
+<style lang="scss">
+  @use '@styles/global/mixin' as m;
+  @use '@styles/global/variable' as v;
+
+  .c-postList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    @include m.pc {
+      gap: 2rem;
+    }
+
+    &__item {
+      $this: &;
+      width: calc(50% - 1rem);
+
+      @include m.sp {
+        width: 100%;
+        text-align: center;
+      }
+
+      &:first-of-type {
+        @include m.sp {
+          margin-top: 0;
+        }
+      }
+
+      * {
+        text-decoration: none;
+        transition: 0.2s ease;
+      }
+
+      &__img {
+        border-radius: 12px;
+        margin-bottom: 0.5rem;
+        height: 40vw;
+        object-fit: cover;
+
+        @include m.pc {
+          height: 260px;
+        }
+      }
+
+      &__link {
+        display: block;
+
+        &:hover {
+          #{$this}__title,
+          #{$this}__date {
+            @include m.pc {
+              color: rgb(var(--accent));
+            }
+          }
+          #{$this}__img {
+            box-shadow: var(--box-shadow);
+          }
+        }
+      }
+
+      &__title {
+        margin: 0;
+        color: rgb(var(--black));
+        line-height: 1;
+        font-size: 1.6rem;
+      }
+
+      &__date {
+        margin: 0;
+        color: rgb(var(--gray));
+      }
+    }
+  }
+
+  .c-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0 .4rem;
+    margin-top: 3.2rem;
+    font-size: 1.2rem;
+
+    @include m.pc {
+      font-size: 1.6rem;
+    }
+
+    &__link {
+      border-radius: .2rem;
+      width: 2.4rem;
+      line-height: 2.4rem;
+      background: #fff;
+      color: v.$accent;
+      text-decoration: none;
+      text-align: center;
+
+      @include m.pc {
+        width: 3.2rem;
+        line-height: 3.2rem;
+        transition: background .4s, color .4s;
+      }
+
+      &.is-current {
+        background: v.$accent;
+        color: #fff;
+        font-weight: bold;
+      }
+
+      &--prev,
+      &--next {
+        position: relative;
+        width: 1.4rem;
+        text-decoration: none;
+
+        @include m.pc {
+          width: 2.4rem;
+        }
+
+        &::before {
+          position: absolute;
+          top: 50%;
+          border: .6rem solid transparent;
+          transform: translate(0,-50%);
+          content: "";
+        }
+
+        &:hover {
+          @include m.pc {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      &--prev::before {
+        left: 0;
+        border-right: .6rem solid v.$accent;
+        border-left: 0;
+      }
+
+      &--next::before {
+        right: 0;
+        border-left: .6rem solid v.$accent;
+        border-right: 0;
+      }
+
+    }
+  }
+</style>

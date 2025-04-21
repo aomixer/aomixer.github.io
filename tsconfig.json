@@ -6,6 +6,7 @@
     "baseUrl": ".",
     "strictNullChecks": true,
     "paths": {
+      "@consts": ["src/consts"],
       "@components/*": ["src/components/*"],
       "@js/*": ["src/js/*"],
       "@project/*": ["src/project/*"],

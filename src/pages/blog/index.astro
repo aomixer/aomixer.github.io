@@ -25,6 +25,7 @@ const paginatedPosts = posts.slice(start, end);
   <body>
     <Header />
     <main>
+      <h1 class="page-title">blog</h1>
       <section>
         <PostList posts={paginatedPosts} currentPage={currentPage} totalPages={totalPages} />
       </section>

@@ -1,0 +1,74 @@
+---
+import BaseHead from '@components/BaseHead.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import PostList from '@components/PostList.astro';
+import { getCollection } from 'astro:content';
+import { SITE_TITLE, SITE_DESCRIPTION } from '@consts';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const pageSize = 4;
+const currentPage = 1;
+const totalPages = Math.ceil(posts.length / pageSize);
+const paginatedPosts = posts.slice(0, pageSize);
+const pagination = false;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <BaseHead title="404 Not Found" description="" />
+  </head>
+  <body>
+    <main>
+      <h1><span>404 Not Found</span></h1>
+      <p>ページがみつかりませんでした</p>
+      <section>
+      </section>
+    </main>
+  </body>
+</html>
+
+
+
+<style lang="scss">
+  @use '@styles/global/mixin' as m;
+  @use '@styles/global/variable' as v;
+
+  h1 {
+		margin-bottom: 3.2rem;
+    font-size: 2rem;
+		text-align: center;
+
+    @include m.pc {
+      font-size: 2.4rem;
+    }
+
+		span {
+			display: inline-block;
+			background: linear-gradient(90deg, #ff3434 0%, #d9d607 20%, #07d907 40%, #3ba0ff 60%, #d13bff 80%, #ff3b8d 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			&::before,
+			&::after {
+				content: "★★★"
+			}
+
+			&::before {
+				padding-right: .5em;
+			}
+
+			&::after {
+				padding-left: .5em;
+			}
+		}
+	}
+
+  p {
+    text-align: center;
+  }
+
+</style>

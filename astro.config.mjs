@@ -5,6 +5,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://aomixer.github.io',
+	site: 'https://aomixer.com',
 	integrations: [mdx(), sitemap()],
 });

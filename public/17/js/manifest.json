@@ -1,0 +1,10 @@
+{
+  "name": "17generator",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "/?cache=1",
+  "short_name": "17さい",
+  "description": "age 17 generator!",
+  "background_color": "#ff6699",
+  "theme_color": "#ff6699"
+}

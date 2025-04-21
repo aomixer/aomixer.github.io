@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="robots" content="noindex">
+	<title>17</title>
+	<link rel="manifest" href="./js/manifest.json">
+	<link rel="stylesheet" type="text/css" media="all" href="./css/style.css">
+	<style type="text/css">
+	.resultTxt { font-size: 16px; }
+	</style>
+</head>
+<body>
+	<div class="form-wrap">
+		<p class="txt-lead">生年月日を入力してください。</p>
+		<div class="form-contents">
+			<input type="number" name="birthYear" class="inputNumber" minlength="4" maxlength="4" min="1900" placeholder="西暦" tabindex="1">
+			<input type="number" name="birthMonth" class="inputNumber" minlength="1" maxlength="2" min="1" max="12" placeholder="月" tabindex="2">
+			<input type="number" name="birthDay" class="inputNumber" minlength="1" maxlength="2" min="1" max="31" placeholder="日" tabindex="3">
+		</div>
+		<button type="button" name="displayResult" class="btn-submit" tabindex="4">計算</button>
+	</div>
+	<div class="result-wrap">
+		<p class="errMsg"></p>
+		<p class="resultTxt"></p>
+	</div>
+
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/script.js"></script>
+	<script>
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('./sw.js')
+				.then(function() {
+					console.log('Service worker registered!');
+				});
+		}
+	</script>
+</body>
+</html>

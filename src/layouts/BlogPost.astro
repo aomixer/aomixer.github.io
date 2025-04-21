@@ -14,40 +14,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 <html lang="ja">
 	<head>
 		<BaseHead title={title + " / " +  SITE_TITLE} description={description} />
-		<style>
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-				height: 360px;
-				object-fit: cover;
-			}
-			.prose {
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-				font-size: 3.2rem;
-				line-height: 1.5;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -79,3 +45,48 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<Footer />
 	</body>
 </html>
+
+<style lang="scss">
+  @use '@styles/global/mixin' as m;
+  @use '@styles/global/variable' as v;
+
+	.hero-image {
+		width: 100%;
+	}
+	.hero-image img {
+		display: block;
+		margin: 0 auto;
+		border-radius: 12px;
+		// box-shadow: var(--box-shadow);
+		object-fit: cover;
+
+		@include m.pc {
+			height: 360px;
+		}
+	}
+	.prose {
+		color: rgb(var(--gray-dark));
+	}
+	.title {
+		margin-bottom: 1em;
+		padding: 1em 0;
+		text-align: center;
+		line-height: 1;
+	}
+	.title h1 {
+		margin: 0 0 0.5em 0;
+		font-size: 2rem;
+		line-height: 1.5;
+
+		@include m.pc {
+			font-size: 3.2rem;
+		}
+	}
+	.date {
+		margin-bottom: 0.5em;
+		color: rgb(var(--gray));
+	}
+	.last-updated-on {
+		font-style: italic;
+	}
+</style>

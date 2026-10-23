@@ -4,11 +4,13 @@
       <SiteHeader />
     </aside>
     <div class="frameset__main">
-      <div class="frameset__content">
-        <main class="panel">
-          <slot />
-        </main>
-        <SiteFooter />
+      <div class="frameset__wrapper">
+        <div class="frameset__content">
+          <main class="panel">
+            <slot />
+          </main>
+          <SiteFooter />
+        </div>
       </div>
     </div>
   </div>
@@ -46,9 +48,13 @@
       min-width: 0;
       height: 100%;
       overflow: auto;
-      background-color: var(--bg);
-      background-image: url('/assets/img/bg_star.png');
-      background-repeat: repeat;
+      background: var(--bg) url('/assets/img/bg_star.png') top left;
+    }
+  }
+
+  &__wrapper {
+    @include pc {
+      background: var(--bg) url('/assets/img/bg_star.png') top left;
     }
   }
 

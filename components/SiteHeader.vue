@@ -29,8 +29,8 @@ function isActive(path: string) {
 
     <div class="header__side">
       <p class="header__brand">
-        <span class="header__brand-star">★</span><br>
-        メニュー<br>
+        <span class="header__brand-star">★</span>
+        メニュー
         <span class="header__brand-star">★</span>
       </p>
       <nav class="header__nav" aria-label="メインメニュー">
@@ -68,7 +68,7 @@ function isActive(path: string) {
     overflow: hidden;
     margin: 0 0 1rem;
     padding: 0.4rem 0;
-    border: 2px solid #00ffff;
+    border: 2px solid $color-cyan;
     background: #000066;
     color: #ffff00;
     font-family: var(--font-display);

@@ -93,6 +93,6 @@ useSeoMeta({
   font-family: var(--font-display);
   font-size: 1.8rem;
   text-align: center;
-  text-shadow: 1px 1px 0 #ffd700;
+  // text-shadow: 1px 1px 0 #ffd700;
 }
 </style>

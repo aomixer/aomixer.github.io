@@ -69,26 +69,33 @@ useSeoMeta({
 </template>
 
 <style scoped lang="scss">
+@use "sass:color";
+@use "~/assets/styles/variables" as *;
 .section {
   margin-top: 2.4rem;
   padding: 1rem;
-  border: 3px double #0000ee;
-  background: #f0f8ff;
+  border: 1px solid $color-blue;
+  // background: color.adjust($color-lightblue, $lightness: 8.5%);
+  background: #fff;
 }
 
 .section-ttl {
   margin-bottom: 1rem;
   padding: 0 0 0.8rem 3.2rem;
-  border-bottom: 2px dashed #ff1493;
+  border-bottom: 2px dotted $color-palevioletred;
   background: url(~/assets/img/icon_circle.gif) no-repeat top left;
-  color: #000080;
+  color: $color-blue;
   font-family: var(--font-display);
   font-size: 1.8rem;
   font-weight: bold;
 
+  a {
+    color: inherit;
+  }
+
   span {
     font-size: 1.3rem;
-    color: #ff1493;
+    color: $color-palevioletred;
   }
 
   img {

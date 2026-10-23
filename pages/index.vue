@@ -31,8 +31,8 @@ useSeoMeta({
 
     <p class="home__counter">
       あなたは
-      <img src="http://aomixer.s325.xrea.com/dream/dream.cgi?id=index">
-      人目のお客様です。
+      <img src="http://aomixer.s325.xrea.com/dream/dream.cgi?id=index" alt="アクセスカウンター">
+      人目のお客様です
     </p>
 
     <section class="home__posts">
@@ -47,14 +47,16 @@ useSeoMeta({
 </template>
 
 <style scoped lang="scss">
+@use "sass:color";
 @use "~/assets/styles/variables" as *;
 
 .home {
   &__hero {
     margin: 0 0 1.6rem;
     padding: 1.6rem 0.8rem 1.2rem;
-    border: 4px ridge #ffd700;
-    background: #000066;
+    // border: 4px ridge #ffd700;
+    border: 4px solid #ffd700;
+    background: $color-lightblue;
     text-align: center;
   }
 
@@ -67,10 +69,9 @@ useSeoMeta({
   }
 
   &__brand {
-    margin: 0.6rem 0;
-    font-family: var(--font-display);
-    font-size: clamp(2.4rem, 8vw, 4rem);
-    font-weight: bold;
+    margin: 0.8rem 0;
+    font-family: var(--font-logo);
+    font-size: clamp(2.4rem, 6vw, 4rem);
     line-height: 1.3;
   }
 
@@ -78,10 +79,10 @@ useSeoMeta({
     overflow: hidden;
     margin-top: 1.2rem;
     padding: 0.4rem 0;
-    border-top: 2px dashed #0ff;
-    border-bottom: 2px dashed #ff1493;
-    background: #003;
-    color: #0f6;
+    border-top: 2px dashed #fff;
+    border-bottom: 2px dashed #fff;
+    background: $color-lightblue;
+    color: $color-blue;
     font-family: var(--font-display);
     white-space: nowrap;
   }
@@ -99,21 +100,19 @@ useSeoMeta({
     gap: 0.4rem;
     margin: 0 0 1.6rem;
     padding: 0.8rem;
-    border: 3px double #0ff;
-    background: #fff8dc;
     flex-wrap: wrap;
     text-align: center;
-    color: #000080;
+    color: $color-ink;
     font-weight: 700;
   }
 
   &__posts-title {
     margin-bottom: 1.2rem;
-    color: #ff1493;
+    color: $color-hot;
     font-family: var(--font-display);
     font-size: 1.8rem;
     text-align: center;
-    text-shadow: 1px 1px 0 #ffd700;
+    // text-shadow: 1px 1px 0 #ffd700;
 
     &::before,
     &::after {
@@ -134,7 +133,7 @@ useSeoMeta({
   }
 
   &__ura {
-    color: #0f6;
+    color: $color-blue;
     font-weight: normal;
     text-decoration: none;
 

@@ -27,7 +27,7 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=DotGothic16&family=Kosugi+Maru&display=swap',
+          href: 'https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Mochiy+Pop+P+One&display=swap',
         },
         { rel: 'alternate', type: 'application/rss+xml', title: 'あおつきのホームページ', href: '/rss.xml' },
       ],

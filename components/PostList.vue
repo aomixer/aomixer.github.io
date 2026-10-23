@@ -98,6 +98,7 @@ function isNewPost(pubDate?: string | Date): boolean {
 </template>
 
 <style scoped lang="scss">
+@use "sass:color";
 @use "~/assets/styles/variables" as *;
 
 .c-postList {
@@ -129,7 +130,7 @@ function isNewPost(pubDate?: string | Date): boolean {
     }
 
     &:hover {
-      background: #f6fbff;
+      background: color.adjust($color-lightblue, $lightness: 7%);
 
       // .c-postList__title {
       //   color: #ff1493;
@@ -176,7 +177,6 @@ function isNewPost(pubDate?: string | Date): boolean {
       font-size: 1.6rem;
     }
 
-    /* .is-newが付与されたときのスタイル例 */
     &.is-new {
       display: flex;
       align-items: center;
@@ -185,7 +185,7 @@ function isNewPost(pubDate?: string | Date): boolean {
         display: inline-block;
         margin-left: .4rem;
         padding: .4rem;
-        background: #f00;
+        background: $color-hot;
         color: #fff;
         font-size: 1rem;
         line-height: 1;

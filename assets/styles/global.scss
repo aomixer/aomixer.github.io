@@ -11,6 +11,7 @@
   --lime: #{$color-lime};
   --gold: #{$color-gold};
   --cyan: #{$color-cyan};
+  --font-logo: "Mochiy Pop P One", sans-serif;
   // --font-display: 'DotGothic16', 'MS PGothic', sans-serif;
   --font-display: 'Kosugi Maru', 'MS PGothic', 'Hiragino Kaku Gothic ProN', sans-serif;
   --font-body: 'Kosugi Maru', 'MS PGothic', 'Hiragino Kaku Gothic ProN', sans-serif;
@@ -29,7 +30,6 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--bg) url('/assets/img/bg_star.png');
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1.6rem;
@@ -38,6 +38,10 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   cursor: crosshair;
+
+  @include sp {
+    background: var(--bg) url('/assets/img/bg_star.png') top left;
+  }
 
   @include pc {
     font-size: 1.6rem;
@@ -107,8 +111,9 @@ table {
 
   th,
   td {
-    border: 1px solid #000080;
+    border: 1px solid $color-blue;
     padding: 0.6rem 0.8rem;
+    font-size: 1.2rem;
     text-align: left;
     vertical-align: top;
 
@@ -119,9 +124,9 @@ table {
 
   th {
     width: 28%;
-    background: #add8e6;
+    background: $color-lightblue;
     font-weight: 700;
-    color: #000080;
+    color: $color-blue;
 
     @include sp {
       width: 100%;
@@ -147,10 +152,10 @@ table {
 }
 
 .panel {
-  // @include bevel-out;
+  @include bevel-out;
+  // box-shadow: 4px 4px 0 rgba(#000, 0.5);
   padding: 1.6rem;
   background: var(--panel);
-  box-shadow: 4px 4px 0 rgba(#000, 0.5);
 
   @include pc {
     padding: 3.2rem;
@@ -160,14 +165,14 @@ table {
 .page-title {
   margin: 0 0 1.6rem;
   padding: 0.4rem;
-  border: 3px double #ff1493;
-  background: #000033;
-  color: #ffff00;
+  border: 3px dotted $color-skyblue;
+  background: $color-lightblue;
+  color: $color-blue;
   font-family: var(--font-display);
   font-size: 2.2rem;
   font-weight: bold;
   text-align: center;
-  text-shadow: 2px 2px 0 #ff1493;
+  text-shadow: 2px 2px 0 #fff;
 
   @include pc {
     margin-bottom: 3.2rem;
@@ -177,10 +182,11 @@ table {
 
   &::before,
   &::after {
-    content: '★';
     margin: 0 0.4em;
-    color: #00ffff;
+    color: #ff0;
+    text-shadow: 0 0 0 rgba(#000,0);
     animation: twinkle 1.2s steps(2, end) infinite;
+    content: '★';
   }
 }
 

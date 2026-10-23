@@ -15,7 +15,9 @@ useSeoMeta({
 
 <template>
   <article>
-    <h1 class="page-title">裏ページ</h1>
+    <!-- <h1 class="page-title">裏ページ</h1> -->
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
     <div class="ura__img">
       <img src="~/assets/img/ura/img_upa_eye.gif" alt="" width="200">

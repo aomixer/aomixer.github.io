@@ -1,17 +1,3 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "strictNullChecks": true,
-    "paths": {
-      "@consts": ["src/consts"],
-      "@components/*": ["src/components/*"],
-      "@js/*": ["src/js/*"],
-      "@project/*": ["src/project/*"],
-      "@styles/*": ["src/styles/*"]
-    }
-
-  }
+  "extends": "./.nuxt/tsconfig.json"
 }

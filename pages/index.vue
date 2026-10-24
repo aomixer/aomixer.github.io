@@ -31,7 +31,7 @@ useSeoMeta({
 
     <p class="home__counter">
       あなたは
-      <img src="http://aomixer.s325.xrea.com/dream/dream.cgi?id=index" alt="アクセスカウンター">
+      <img src="https://ss1.xrea.com/aomixer.s325.xrea.com/dream/dream.cgi?id=index" alt="アクセスカウンター">
       人目のお客様です
     </p>
 

@@ -31,7 +31,7 @@ function postHref(post: PostItem) {
 }
 
 /**
- * 投稿日が「今日から1ヶ月以内」かどうかを判定する関数（JST基準）
+ * 投稿日が「今日から1ヶ月以内」かどうかを確実に判定する関数
  */
 function isNewPost(pubDate?: string | Date): boolean {
   if (!pubDate) return false
@@ -39,18 +39,16 @@ function isNewPost(pubDate?: string | Date): boolean {
   const date = new Date(pubDate)
   if (isNaN(date.getTime())) return false
 
-  // 日本時間（JST: UTC+9）ベースでの「今日」を取得
-  const now = new Date()
-  const jstNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }))
+  const today = new Date()
 
-  // 1ヶ月前（30日前）の日付を算出
-  const oneMonthAgo = new Date(jstNow)
-  oneMonthAgo.setMonth(jstNow.getMonth() - 1)
+  // 比較のために「年・月・日」の差分を日数ベースで計算する（約30日前）
+  // タイムゾーンのズレをなくすため、ミリ秒ベースで計算
+  const diffTime = today.getTime() - date.getTime()
+  const diffDays = diffTime / (1000 * 60 * 60 * 24)
 
-  // 判定対象の日付もJSTに合わせる（文字列等の場合を考慮）
-  const jstDate = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }))
-
-  return jstDate >= oneMonthAgo && jstDate <= jstNow
+  // 0日（未来の投稿）〜 30日前 以内であれば true
+  // ※未来の日付も考慮して diffDays >= 0 にしています
+  return diffDays >= 0 && diffDays <= 30
 }
 </script>
 

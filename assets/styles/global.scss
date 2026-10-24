@@ -1,0 +1,284 @@
+@use './variables' as *;
+
+:root {
+  --bg: #{$color-bg};
+  --panel: #{$color-panel};
+  --ink: #{$color-ink};
+  --muted: #{$color-muted};
+  --link: #{$color-link};
+  --visited: #{$color-visited};
+  --hot: #{$color-hot};
+  --lime: #{$color-lime};
+  --gold: #{$color-gold};
+  --cyan: #{$color-cyan};
+  --font-logo: "Mochiy Pop P One", sans-serif;
+  // --font-display: 'DotGothic16', 'MS PGothic', sans-serif;
+  --font-display: 'Kosugi Maru', 'MS PGothic', 'Hiragino Kaku Gothic ProN', sans-serif;
+  --font-body: 'Kosugi Maru', 'MS PGothic', 'Hiragino Kaku Gothic ProN', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  line-height: 1.75;
+  letter-spacing: .1em;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  cursor: crosshair;
+
+  @include sp {
+    background: var(--bg) url('/assets/img/bg_star.png') top left;
+  }
+
+  @include pc {
+    font-size: 1.6rem;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--link);
+
+  // &:visited {
+  //   color: var(--visited);
+  // }
+
+  &:hover {
+    color: var(--hot);
+    background: var(--gold);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 0.6rem;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+hr {
+  border: none;
+  height: 4px;
+  margin: 1.6rem 0;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff9900,
+    #ffff00,
+    #33ff00,
+    #0099ff,
+    #6633ff,
+    #ff33cc,
+    #ff0000
+  );
+
+  @include pc {
+    margin: 3.2rem 0;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+
+  th,
+  td {
+    border: 1px solid $color-blue;
+    padding: 0.6rem 0.8rem;
+    font-size: 1.2rem;
+    text-align: left;
+    vertical-align: top;
+
+    @include sp {
+      display: block;
+    }
+  }
+
+  th {
+    width: 28%;
+    background: $color-lightblue;
+    font-weight: 700;
+    color: $color-blue;
+
+    @include sp {
+      width: 100%;
+      border-bottom: none;
+    }
+  }
+
+  td {
+    background: #fff;
+  }
+}
+
+.pc {
+  @include sp {
+    display: none;
+  }
+}
+
+.sp {
+  @include pc {
+    display: none;
+  }
+}
+
+.panel {
+  @include bevel-out;
+  // box-shadow: 4px 4px 0 rgba(#000, 0.5);
+  padding: 1.6rem;
+  background: var(--panel);
+
+  @include pc {
+    padding: 3.2rem;
+  }
+}
+
+.page-title {
+  margin: 0 0 1.6rem;
+  padding: 0.4rem;
+  border: 3px dotted $color-skyblue;
+  background: $color-lightblue;
+  color: $color-blue;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 0 #fff;
+
+  @include pc {
+    margin-bottom: 3.2rem;
+    padding: .8rem;
+    font-size: 2.8rem;
+  }
+
+  &::before,
+  &::after {
+    margin: 0 0.4em;
+    color: #ff0;
+    text-shadow: 0 0 0 rgba(#000,0);
+    animation: twinkle 1.2s steps(2, end) infinite;
+    content: '★';
+  }
+}
+
+.rainbow-text {
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    #ff3434 0%,
+    #d9d607 20%,
+    #07d907 40%,
+    #3ba0ff 60%,
+    #d13bff 80%,
+    #ff3b8d 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.prose {
+  color: #000;
+  font-size: 1.6rem;
+
+  :deep(p) {
+    margin-bottom: 1.2rem;
+  }
+
+  :deep(a) {
+    color: var(--link);
+
+    &:visited {
+      color: var(--visited);
+    }
+
+    &:hover {
+      color: var(--hot);
+      background: var(--gold);
+    }
+  }
+
+  :deep(img) {
+    margin: 1.2rem 0;
+    border: 3px ridge #c0c0c0;
+  }
+
+  :deep(blockquote) {
+    margin: 0 0 1.2rem;
+    padding: 0.8rem 1.2rem;
+    border: 2px dashed #ff1493;
+    background: #fff0f8;
+    color: #660033;
+  }
+
+  :deep(code) {
+    padding: 0.1em 0.35em;
+    border: 1px inset #808080;
+    background: #e8e8e8;
+    font-size: 0.92em;
+  }
+
+  :deep(pre) {
+    padding: 1rem;
+    overflow-x: auto;
+    border: 3px inset #808080;
+    background: #000000;
+    color: #00ff00;
+  }
+
+  :deep(pre code) {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

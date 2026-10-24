@@ -1,0 +1,46 @@
+$bp-pc: 768px;
+
+$color-bg: #003;
+// $color-panel: #fffff0;
+$color-panel: #fff2f9;
+$color-ink: #333;
+$color-muted: #669;
+$color-link: #00e;
+$color-visited: #551a8b;
+$color-hot: #ff1493;
+$color-palevioletred: #cc487b;
+$color-lime: #00ff66;
+$color-gold: #ffd700;
+$color-cyan: #0ff;
+$color-lightblue: #cfecff;
+$color-skyblue: #57afeb;
+$color-blue: #1e8bd3;
+$color-bevel-light: #fff;
+$color-bevel-dark: #808080;
+$color-bevel-face: #c0c0c0;
+
+@mixin pc {
+  @media (min-width: $bp-pc) {
+    @content;
+  }
+}
+
+@mixin sp {
+  @media (max-width: #{$bp-pc - 1px}) {
+    @content;
+  }
+}
+
+@mixin bevel-out {
+  border-style: solid;
+  border-width: 3px;
+  border-color: $color-bevel-light $color-bevel-dark $color-bevel-dark $color-bevel-light;
+  background: $color-bevel-face;
+}
+
+@mixin bevel-in {
+  border-style: solid;
+  border-width: 3px;
+  border-color: $color-bevel-dark $color-bevel-light $color-bevel-light $color-bevel-dark;
+  background: #e8e8e8;
+}

@@ -1,0 +1,98 @@
+<script setup lang="ts">
+import { SITE_TITLE } from '~/utils/site'
+
+useSeoMeta({
+  title: `プロフィール / ${SITE_TITLE}`,
+  description: 'お絵描きゲーミングウーパー',
+  ogTitle: `プロフィール / ${SITE_TITLE}`,
+  ogDescription: 'お絵描きゲーミングウーパー',
+})
+</script>
+
+<template>
+  <article>
+    <h1 class="page-title">プロフィール</h1>
+    <p class="about-lead">お絵描きゲーミングウーパー</p>
+    <p>
+      <a href="/assets/img/about/img_avatar-preview.png" target="_blank" rel="noopener">
+        三面図的なもの
+      </a>
+    </p>
+
+    <table>
+      <tbody>
+        <tr>
+          <th>PC</th>
+          <td>
+            <strong>G-Master Spear Z790/D5</strong><br>
+            CPU：Core i7-13700K<br>
+            グラボ：GeForce RTX4060 8GB<br>
+            マザボ：ASRock Z790 LiveMixer<br>
+            メモリ：64GB<br>
+            OS：Windows11 Pro
+          </td>
+        </tr>
+        <tr>
+          <th>エディタ</th>
+          <td>Visual Studio Code<br>秀丸エディタ</td>
+        </tr>
+        <tr>
+          <th>お絵かき</th>
+          <td>CLIP STUDIO PAINT<br>Adobe Photoshop CC<br>Adobe Illustrator CC</td>
+        </tr>
+        <tr>
+          <th>その他のソフト</th>
+          <td>Adobe CCコンプリート</td>
+        </tr>
+        <tr>
+          <th>モニタ</th>
+          <td>BenQ XL2411P（メイン）<br>BenQ RL2460（サブ）</td>
+        </tr>
+        <tr>
+          <th>ヘッドフォン</th>
+          <td>ATH-HL7BT</td>
+        </tr>
+        <tr>
+          <th>マイク</th>
+          <td>HyperX QuadCast Q</td>
+        </tr>
+        <tr>
+          <th>キーボード</th>
+          <td>CORSAIR K65 RAPIDFIRE CherryMX Speed RGB COMPACT</td>
+        </tr>
+        <tr>
+          <th>マウス</th>
+          <td>Razer Mamba Wireless</td>
+        </tr>
+        <tr>
+          <th>マウスパッド</th>
+          <td>CORSAIR MM300 Extended</td>
+        </tr>
+        <tr>
+          <th>ペンタブ</th>
+          <td>Wacom Cintiq Pro 13(DTH-1320)</td>
+        </tr>
+        <tr>
+          <th>机</th>
+          <td>100-DESK034（W1200xD500）</td>
+        </tr>
+        <tr>
+          <th>椅子</th>
+          <td>DXRACER DXR-BKN</td>
+        </tr>
+      </tbody>
+    </table>
+
+</article>
+</template>
+
+<style scoped lang="scss">
+.about-lead {
+  margin-bottom: 1.6rem;
+  color: #ff1493;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  text-align: center;
+  // text-shadow: 1px 1px 0 #ffd700;
+}
+</style>

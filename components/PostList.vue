@@ -31,22 +31,26 @@ function postHref(post: PostItem) {
 }
 
 /**
- * 投稿日が「今日から1ヶ月以内」かどうかを判定する関数
+ * 投稿日が「今日から1ヶ月以内」かどうかを判定する関数（JST基準）
  */
 function isNewPost(pubDate?: string | Date): boolean {
   if (!pubDate) return false
 
   const date = new Date(pubDate)
-  if (isNaN(date.getTime())) return false // 不正な日時の場合はfalse
+  if (isNaN(date.getTime())) return false
 
-  const today = new Date()
+  // 日本時間（JST: UTC+9）ベースでの「今日」を取得
+  const now = new Date()
+  const jstNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }))
 
   // 1ヶ月前（30日前）の日付を算出
-  const oneMonthAgo = new Date()
-  oneMonthAgo.setMonth(today.getMonth() - 1)
+  const oneMonthAgo = new Date(jstNow)
+  oneMonthAgo.setMonth(jstNow.getMonth() - 1)
 
-  // 1ヶ月前以降かつ未来の日付ではない場合に true を返す
-  return date >= oneMonthAgo && date <= today
+  // 判定対象の日付もJSTに合わせる（文字列等の場合を考慮）
+  const jstDate = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }))
+
+  return jstDate >= oneMonthAgo && jstDate <= jstNow
 }
 </script>
 

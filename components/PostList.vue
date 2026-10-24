@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 
 type PostItem = {
   path?: string
@@ -32,44 +32,40 @@ function postHref(post: PostItem) {
   return `/blog/${slug}/`
 }
 
-const isClient = ref(false)
-
+// -----------------------------------------------------------------
+// ブラウザ側（クライアント）で表示された瞬間に実行する処理
+// -----------------------------------------------------------------
 onMounted(() => {
-  isClient.value = true
-})
-
-/**
- * タイムゾーンに影響されない、完全な日付文字列（YYYY-MM-DD）ベースの判定関数
- */
-function isNewPost(pubDate?: string | Date): boolean {
-  if (!pubDate) return false
-
-  // 1. pubDate を "YYYY-MM-DD" の形に確実に正規化する
-  const dateObj = new Date(pubDate)
-  if (isNaN(dateObj.getTime())) return false
-
-  // タイムゾーンによるズレを防ぐため、年・月・日を直接数値として取得
-  const pubYear = dateObj.getFullYear()
-  const pubMonth = dateObj.getMonth()
-  const pubDay = dateObj.getDate()
-
-  // 2. ブラウザ（またはクライアント）の「今日」を年月日ベースで取得
-  const todayObj = new Date()
-  const todayYear = todayObj.getFullYear()
-  const todayMonth = todayObj.getMonth()
-  const todayDay = todayObj.getDate()
-
-  // それぞれを「その日の0時0分0秒」のタイムスタンプ（ミリ秒）に変換
-  const pubTime = new Date(pubYear, pubMonth, pubDay).getTime()
+  const today = new Date()
+  const todayYear = today.getFullYear()
+  const todayMonth = today.getMonth()
+  const todayDay = today.getDate()
   const todayTime = new Date(todayYear, todayMonth, todayDay).getTime()
 
-  // 日数の差分を計算
-  const diffTime = todayTime - pubTime
-  const diffDays = diffTime / (1000 * 60 * 60 * 24)
+  // 記事リストの各日付要素を取得して判定
+  const dateElements = document.querySelectorAll<HTMLElement>('.js-post-date')
 
-  // 0日（今日）〜 30日前 以内であれば true
-  return diffDays >= 0 && diffDays <= 30
-}
+  dateElements.forEach((el) => {
+    const pubDateStr = el.dataset.date
+    if (!pubDateStr) return
+
+    const dateObj = new Date(pubDateStr)
+    if (isNaN(dateObj.getTime())) return
+
+    const pubYear = dateObj.getFullYear()
+    const pubMonth = dateObj.getMonth()
+    const pubDay = dateObj.getDate()
+    const pubTime = new Date(pubYear, pubMonth, pubDay).getTime()
+
+    // 日数の差分を計算
+    const diffDays = (todayTime - pubTime) / (1000 * 60 * 60 * 24)
+
+    // 0日（今日）〜 30日前 以内であれば、親の pタグに .is-new を強制付与
+    if (diffDays >= 0 && diffDays <= 30) {
+      el.closest('.c-postList__date')?.classList.add('is-new')
+    }
+  })
+})
 </script>
 
 <template>
@@ -83,8 +79,11 @@ function isNewPost(pubDate?: string | Date): boolean {
           :src="post.heroImage || '/assets/img/blog/noimage.png'"
           :alt="post.title || ''"
         > -->
-        <p class="c-postList__date" :class="{ 'is-new': isClient && isNewPost(post.pubDate) }">
-          <FormattedDate v-if="post.pubDate" :date="post.pubDate" />
+        <!-- data-date に元の公開日を持たせておき、あとからJSでクラスを付与する -->
+        <p class="c-postList__date">
+          <span class="js-post-date" :data-date="post.pubDate">
+            <FormattedDate v-if="post.pubDate" :date="post.pubDate" />
+          </span>
         </p>
         <h4 class="c-postList__title">{{ post.title }}</h4>
       </NuxtLink>

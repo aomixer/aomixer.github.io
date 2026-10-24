@@ -32,9 +32,6 @@ function postHref(post: PostItem) {
   return `/blog/${slug}/`
 }
 
-// -----------------------------------------------------------------
-// クライアント側（ブラウザ）でマウントされた後に判定フラグを立てる
-// -----------------------------------------------------------------
 const isClient = ref(false)
 
 onMounted(() => {
@@ -42,22 +39,35 @@ onMounted(() => {
 })
 
 /**
- * 投稿日が「今日から1ヶ月以内（30日以内）」かどうかを確実に判定する関数
+ * タイムゾーンに影響されない、完全な日付文字列（YYYY-MM-DD）ベースの判定関数
  */
 function isNewPost(pubDate?: string | Date): boolean {
-  // ブラウザ表示前（SSR時）は一律 false にしてズレを防ぐ
-  if (!isClient.value || !pubDate) return false
+  if (!pubDate) return false
 
-  const date = new Date(pubDate)
-  if (isNaN(date.getTime())) return false
+  // 1. pubDate を "YYYY-MM-DD" の形に確実に正規化する
+  const dateObj = new Date(pubDate)
+  if (isNaN(dateObj.getTime())) return false
 
-  const today = new Date()
+  // タイムゾーンによるズレを防ぐため、年・月・日を直接数値として取得
+  const pubYear = dateObj.getFullYear()
+  const pubMonth = dateObj.getMonth()
+  const pubDay = dateObj.getDate()
 
-  // タイムゾーンのズレや環境差分を防ぐためミリ秒ベースの日数差分で計算
-  const diffTime = today.getTime() - date.getTime()
+  // 2. ブラウザ（またはクライアント）の「今日」を年月日ベースで取得
+  const todayObj = new Date()
+  const todayYear = todayObj.getFullYear()
+  const todayMonth = todayObj.getMonth()
+  const todayDay = todayObj.getDate()
+
+  // それぞれを「その日の0時0分0秒」のタイムスタンプ（ミリ秒）に変換
+  const pubTime = new Date(pubYear, pubMonth, pubDay).getTime()
+  const todayTime = new Date(todayYear, todayMonth, todayDay).getTime()
+
+  // 日数の差分を計算
+  const diffTime = todayTime - pubTime
   const diffDays = diffTime / (1000 * 60 * 60 * 24)
 
-  // 0日（未来の投稿）〜 30日前 以内であれば true
+  // 0日（今日）〜 30日前 以内であれば true
   return diffDays >= 0 && diffDays <= 30
 }
 </script>
@@ -73,7 +83,6 @@ function isNewPost(pubDate?: string | Date): boolean {
           :src="post.heroImage || '/assets/img/blog/noimage.png'"
           :alt="post.title || ''"
         > -->
-        <!-- isClient が true（ブラウザ上）になったタイミングで isNewPost の判定結果を反映 -->
         <p class="c-postList__date" :class="{ 'is-new': isClient && isNewPost(post.pubDate) }">
           <FormattedDate v-if="post.pubDate" :date="post.pubDate" />
         </p>
@@ -143,15 +152,6 @@ function isNewPost(pubDate?: string | Date): boolean {
 
     &:hover {
       background: color.adjust($color-lightblue, $lightness: 7%);
-
-      // .c-postList__title {
-      //   color: #ff1493;
-      //   background: #ffff00;
-      // }
-
-      // .c-postList__img {
-      //   outline: 3px solid #00ffff;
-      // }
     }
   }
 
